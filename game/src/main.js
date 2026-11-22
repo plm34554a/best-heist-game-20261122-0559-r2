@@ -261,18 +261,19 @@ export class Game {
     else if (this.state === 'caught') r.drawCaught(this);
     else if (this.state === 'clear') r.drawLevelClear(this);
     else if (this.state === 'victory') r.drawVictory(this);
-    // "Press Space to grab" hint when loot is near.
+    // "Press Space to grab" hint, drawn in the empty strip below the room
+    // so it never overlaps the loot label or a vision cone.
     if (this.state === 'playing') {
       const near = this.thief.nearestLoot(this.parsed.loot, this.parsed.target);
       if (near) {
         const ctx = r.ctx;
         ctx.fillStyle = '#ffd34d';
-        ctx.font = 'bold 13px sans-serif';
+        ctx.font = 'bold 14px sans-serif';
         ctx.textAlign = 'center';
         ctx.fillText(
           near.kind === 'target' ? 'SPACE — steal the target!' : 'SPACE — grab the loot!',
-          PLAY_X + near.x,
-          PLAY_Y + near.y - 28,
+          CANVAS_W / 2,
+          CANVAS_H - 22,
         );
         ctx.textAlign = 'left';
       }

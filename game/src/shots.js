@@ -43,13 +43,15 @@ export function applyShot(game, shot) {
     game.thief.loot = 385;
     game.parsed.target.taken = true;
     game.targetTaken = true;
-    game.thief.x = 6 * 40 + 20;
-    game.thief.y = 11 * 40 + 20;
+    // Near the exit (top-left), alarm high, guard closing in from far away:
+    // the guard needs ~3s to reach the thief, so the shot stays a live chase.
+    game.thief.x = 4 * 40 + 20;
+    game.thief.y = 3 * 40 + 20;
     game.alarm.value = 72;
     game.guards[0].state = 'chase';
     game.guards[0].lastSeen = { x: game.thief.x, y: game.thief.y };
-    game.guards[0].pos = { x: 10 * 40 + 20, y: 8 * 40 + 20 };
-    game.guards[0].facing = Math.PI / 2;
+    game.guards[0].pos = { x: 13 * 40 + 20, y: 9 * 40 + 20 };
+    game.guards[0].facing = Math.atan2(-240, -360);
     game.state = 'playing';
     return true;
   }
